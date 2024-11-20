@@ -1,8 +1,9 @@
 import os
+import const
 
 def load_files():
-    folder_path_1 = 'Impersonation_attack_dataset.txt'
-    folder_path_2 = 'Fuzzy_attack_dataset.txt'
+    folder_path_1 = const.folder_path_1
+    folder_path_2 = const.folder_path_2
 
     csv_files_1 = [f for f in os.listdir(folder_path_1) if f.endswith('.csv')]
     csv_files_2 = [f for f in os.listdir(folder_path_2) if f.endswith('.csv')]

@@ -6,6 +6,7 @@ from file_manager import load_files
 from utils import get_output_folder
 import os
 import sys
+import const
 
 # 현재 선택된 플롯 타입을 저장하는 변수
 selected_plot_type = "timestamp_diff"  # 초기값: "timestamp_diff"
@@ -51,8 +52,8 @@ def create_gui(root):
     files_info, id_to_filename_map_1, id_to_filename_map_2 = load_files()
 
     # Check file existence and populate Treeview
-    folder_path_1 = 'Impersonation_attack_dataset.txt'
-    folder_path_2 = 'Fuzzy_attack_dataset.txt'
+    folder_path_1 = const.folder_path_1
+    folder_path_2 = const.folder_path_2
 
     for file_data in files_info:
         file_id = file_data[0]

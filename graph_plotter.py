@@ -3,18 +3,20 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import const
 
 
 def save_all_graphs(id_to_filename_map_1, id_to_filename_map_2, output_folder):
     for selected_id in sorted(set(id_to_filename_map_1.keys()) | set(id_to_filename_map_2.keys())):
         save_graph_to_file(selected_id, 'timestamp_diff', id_to_filename_map_1, id_to_filename_map_2, output_folder)
         save_graph_to_file(selected_id, 'data', id_to_filename_map_1, id_to_filename_map_2, output_folder)
+        save_graph_to_file(selected_id, 'data_change_rate', id_to_filename_map_1, id_to_filename_map_2, output_folder)
     print("All graphs saved.")
 
 
 def generate_graph(selected_id, column, id_to_filename_map_1, id_to_filename_map_2):
-    folder_path_1 = 'Impersonation_attack_dataset.txt'
-    folder_path_2 = 'Fuzzy_attack_dataset.txt'
+    folder_path_1 = const.folder_path_1
+    folder_path_2 = const.folder_path_2
 
     file_path_1 = os.path.join(folder_path_1, id_to_filename_map_1.get(selected_id, ""))
     file_path_2 = os.path.join(folder_path_2, id_to_filename_map_2.get(selected_id, ""))
@@ -133,7 +135,7 @@ def plot_csv_comparison(selected_id, selected_column, id_to_filename_map_1, id_t
 def save_graph_to_file(selected_id, column, id_to_filename_map_1, id_to_filename_map_2, output_folder):
     fig = generate_graph(selected_id, column, id_to_filename_map_1, id_to_filename_map_2)
 
-    output_file = os.path.join(output_folder, f"{selected_id}_{column}.png")
+    output_file = os.path.join(output_folder, f"{column}_{selected_id}.png")
     os.makedirs(output_folder, exist_ok=True)
     plt.savefig(output_file)
     plt.close(fig)
