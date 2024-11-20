@@ -5,12 +5,22 @@ import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import const
 
+# matplotlib 백엔드 설정
+import matplotlib
+matplotlib.use('Agg')  # 비인터랙티브 백엔드 사용
 
-def save_all_graphs(id_to_filename_map_1, id_to_filename_map_2, output_folder):
+def save_all_graphs(id_to_filename_map_1, id_to_filename_map_2, output_folder, save_interval=50):
+    count = 0
     for selected_id in sorted(set(id_to_filename_map_1.keys()) | set(id_to_filename_map_2.keys())):
         save_graph_to_file(selected_id, 'timestamp_diff', id_to_filename_map_1, id_to_filename_map_2, output_folder)
         save_graph_to_file(selected_id, 'data', id_to_filename_map_1, id_to_filename_map_2, output_folder)
         save_graph_to_file(selected_id, 'data_change_rate', id_to_filename_map_1, id_to_filename_map_2, output_folder)
+        count += 1
+        
+        # 지정된 간격마다 메모리 해제
+        if count % save_interval == 0:
+            print(f"Processed {count} graphs, clearing memory...")
+            plt.close('all')  # 모든 matplotlib 객체 닫기
     print("All graphs saved.")
 
 
@@ -27,9 +37,7 @@ def generate_graph(selected_id, column, id_to_filename_map_1, id_to_filename_map
     print(f"  File 2: {file_path_2} {'[FOUND]' if os.path.isfile(file_path_2) else '[NOT FOUND]'}")
 
     if not os.path.isfile(file_path_1) and not os.path.isfile(file_path_2):
-        print(f"Warning: No valid files for ID {file_path_1}.")
         print(f"Warning: No valid files for ID {selected_id}.")
-        print(f"Warning: No valid files for ID {column}.")
         return plt.figure()
 
     df1 = pd.read_csv(file_path_1) if os.path.isfile(file_path_1) else pd.DataFrame()

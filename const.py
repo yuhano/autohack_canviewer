@@ -1,2 +1,2 @@
-folder_path_1 = '2024-11-20_09-40-11_안개등'
-folder_path_2 = 'TSMaster12024_11_20_12_31_36상향등'
+folder_path_1 = 'autots2024_11_20_17_58_08_정상 풀덤프'
+folder_path_2 = 'autots2024_11_20_17_17_30_상향등'
